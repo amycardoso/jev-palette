@@ -7,9 +7,9 @@ const PRICE_PER_INPUT_TOKEN_USD = 0.042 / 1_000_000
  * whole command catalog. The answer's probability distribution IS the ranking.
  */
 export function buildJevRequest(query, commands) {
-  const options = {}
+  const criteria = {}
   for (const cmd of commands) {
-    options[cmd.id] = `${cmd.label} — ${cmd.description}`
+    criteria[cmd.id] = `${cmd.label} — ${cmd.description}`
   }
   return {
     model: 'jev-latest',
@@ -19,7 +19,7 @@ export function buildJevRequest(query, commands) {
         type: 'choice',
         instructions:
           'The user typed this query into a command palette (in Portuguese or English). Which command are they trying to run?',
-        options,
+        criteria,
       },
     },
   }

@@ -12,9 +12,10 @@ describe('buildJevRequest', () => {
     expect(req.model).toBe('jev-latest')
     expect(req.state.query).toBe('jogar fora essa mensagem')
     expect(req.questions.command.type).toBe('choice')
-    expect(Object.keys(req.questions.command.options)).toEqual(['delete_message', 'archive'])
-    const options = req.questions.command.options as Record<string, string>
-    expect(options.delete_message).toContain('trash')
+    expect(req.questions.command.instructions).toContain('command palette')
+    expect(Object.keys(req.questions.command.criteria)).toEqual(['delete_message', 'archive'])
+    const criteria = req.questions.command.criteria as Record<string, string>
+    expect(criteria.delete_message).toContain('trash')
   })
 })
 

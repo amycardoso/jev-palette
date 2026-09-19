@@ -16,8 +16,9 @@ index, no output tokens billed.
 
 ```
 state:     { query: "jogar fora essa mensagem" }
-question:  choice("Which command does the user want?", { delete_message: …, archive_message: …, ×77 })
-answer:    { choice: "delete_message", distribution: { delete_message: 0.91, … }, confidence: 0.91 }
+question:  { type: "choice", instructions: "Which command does the user want?",
+             criteria: { delete_message: …, archive_message: …, ×77 } }
+answer:    { choice: "delete_message", probabilities: { delete_message: 0.64, … }, confidence: 0.62 }
 ```
 
 At ~900 input tokens per call and $0.042 per million input tokens, every
@@ -53,8 +54,10 @@ shows in the header until the real key is configured.
 npm test
 ```
 
-## Field-name note
+## Schema notes (verified against jev-1.13.0)
 
-Early-access API: if your responses name the distribution field something
-other than `distribution`/`probabilities`, adjust `rankFromAnswer` in
-`server/jev.mjs` (it already tolerates both).
+A `choice` question takes `instructions` (the decision prompt) and `criteria`
+(a map of option id → description); the answer comes back with `choice`,
+`probabilities` (floats summing to 1 across every option) and `confidence`.
+`rankFromAnswer` in `server/jev.mjs` also tolerates a `distribution` field
+name, just in case.
