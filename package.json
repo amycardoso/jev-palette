@@ -9,6 +9,7 @@
     "dev:mock": "JEV_MOCK=1 node server/index.mjs",
     "build": "vite build",
     "test": "vitest run",
+    "eval": "node eval/run.mjs",
     "test:watch": "vitest"
   },
   "dependencies": {

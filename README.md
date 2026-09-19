@@ -57,6 +57,27 @@ shows in the header until the real key is configured.
 npm test
 ```
 
+## Eval
+
+50 labeled queries ([`eval/queries.mjs`](eval/queries.mjs)) in three slices:
+intent phrased in Portuguese, intent phrased in English, and name-like queries
+where classic fuzzy matching is strong. Run with `npm run eval` (live API,
+~$0.004 total). Results against `jev-1.13.0` (2026-09-19):
+
+| Slice | n | Jev top-1 | Jev top-3 | Fuzzy top-1 | Fuzzy top-3 |
+|---|---|---|---|---|---|
+| pt-intent | 25 | 100% | 100% | 0% | 0% |
+| en-intent | 15 | 93% | 100% | 0% | 0% |
+| name | 10 | 100% | 100% | 100% | 100% |
+| **overall** | 50 | **98%** | **100%** | 20% | 20% |
+
+Mean Jev latency: 413ms. The single top-1 miss is "throw this away" ranked as
+*Discard draft* over *Delete message* — a defensible reading without more
+state. The `name` slice is the honest caveat: when the user already knows the
+command's name, fuzzy is just as accurate and effectively instant, which is
+why a production palette should run fuzzy first and fall through to Jev when
+fuzzy comes back empty or weak.
+
 ## Schema notes (verified against jev-1.13.0)
 
 A `choice` question takes `instructions` (the decision prompt) and `criteria`
