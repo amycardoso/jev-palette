@@ -5,7 +5,10 @@ TypeSafe AI's System One model. Type your *intent* — in Portuguese or English 
 and the palette ranks 77 commands by meaning, side by side with a classic
 fuzzy matcher that fails honestly on the same queries.
 
-![mode](https://img.shields.io/badge/model-jev--latest-orange)
+![demo](docs/demo.gif)
+
+*"jogar fora essa mensagem" → Delete message · "make it dark in here" → Toggle
+dark mode (100%) — while the fuzzy baseline finds nothing.*
 
 ## The trick
 
